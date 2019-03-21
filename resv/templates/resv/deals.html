@@ -18,11 +18,12 @@
     <div class="card mb-3">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="{{ deal.picture }}" class="card-img" alt="...">
+          <img src="{{ deal.picture.url }}" style="height: 175px;" class="card-img">
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">{{ deal.name }} <small class="text-muted">{{ deal.location }}</small></h5>
+            <h5 class="card-title"><a class="article-title" href="{% url 'resv:deal-detail' deal.id %}">{{ deal.name }}</a>
+              <small class="text-muted">{{ deal.location }}</small></h5>
             <p class="card-text">{{ deal.short_description }}</p>
           </div>
         </div>
