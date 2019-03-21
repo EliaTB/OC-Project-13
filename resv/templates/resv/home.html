@@ -6,10 +6,26 @@
 <!-- Page Content -->
 <div class="container">
 
+  <div class="starter-template">
+    <h1>Welcome</h1>
+    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+  </div>
+  
+  <div>
+    <h4>Find deals</h4>
+    <div class="input-group mb-3">
+        <input name="question" type="text" class="form-control" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="submit">Search</button>
+        </div>
+    </div>
+    </div>
+  <hr>
+
   <!-- Page Heading -->
-  <h1 class="my-4">Page Heading
-    <small>Secondary Text</small>
-  </h1>
+  <h4 class="my-4">Latest announces
+    <a href="{% url 'resv:deals' %}"><small>browse all</small></a>
+  </h4>
 
   <div class="row">
     <div class="col-lg-4 col-sm-6 mb-4">
@@ -107,5 +123,4 @@
   </ul>
 
 </div>
-<!-- /.container -->
 {% endblock content %}
