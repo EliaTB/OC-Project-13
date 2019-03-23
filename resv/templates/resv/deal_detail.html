@@ -1,9 +1,15 @@
 {% extends "resv/base.html" %}
 {% block content %}
-  
+ 
+{% if object.author == user %}
+<div> 
 <h2 class="my-4">{{ object.name }}
   <small>{{ object.location }}</small>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'resv:deal-update' object.id %}">Update</a>
+    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'resv:deal-delete' object.id %}">Delete</a>
+{% endif %}
 </h2>
+</div>
 
 <div class="row">
 
@@ -24,9 +30,7 @@
   </div>
 </div>
 <hr>
-
 <h3 class="my-4">Comments</h3>
-
 <div class="row">
 <div class="card">
   <div class="card-body">

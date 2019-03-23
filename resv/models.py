@@ -11,7 +11,7 @@ class Deal(models.Model):
 	location = models.CharField(max_length=100)
 	picture = models.ImageField(default='default.jpg', upload_to='deals_pics')
 	date_posted = models.DateTimeField(default=timezone.now)
-	author = models.ForeignKey(User, on_delete=models.CASCADE)
+	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deals')
 
 
 	def get_absolute_url(self):
