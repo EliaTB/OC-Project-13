@@ -32,7 +32,7 @@ class DealDetailView(DetailView):
 
 class DealCreateView(LoginRequiredMixin, CreateView):
     model = Deal
-    fields = ['name', 'short_description', 'content', 'location',  'picture']
+    fields = ['name', 'short_description', 'content', 'location',  'thumbnail']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -41,7 +41,7 @@ class DealCreateView(LoginRequiredMixin, CreateView):
 
 class DealUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Deal
-    fields = ['name', 'short_description', 'content', 'location',  'picture']
+    fields = ['name', 'short_description', 'content', 'location',  'thumbnail']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

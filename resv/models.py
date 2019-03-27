@@ -9,7 +9,7 @@ class Deal(models.Model):
 	short_description = models.CharField(max_length=150)
 	content = models.TextField()
 	location = models.CharField(max_length=100)
-	picture = models.ImageField(default='default.jpg', upload_to='deals_pics')
+	thumbnail = models.ImageField(default='default.jpg', upload_to='deals_pics')
 	date_posted = models.DateTimeField(default=timezone.now)
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deals')
 
