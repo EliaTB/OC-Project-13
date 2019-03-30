@@ -24,20 +24,4 @@ class Deal(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('resv:deal-detail', kwargs={'pk': self.pk})
-
-
-class Reservation(models.Model):
-    REQUESTED = 0
-    ACCEPTED = 1
-    DENIED = 2
-    STATUS = (
-        (REQUESTED, ('Requested')),
-        (ACCEPTED, ('Accepted')),
-        (DENIED, ('Denied')),
-    )
-    deal = models.ForeignKey(Deal ,on_delete=models.CASCADE, related_name='reservation')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservation')
-    status = models.SmallIntegerField(choices=STATUS, null=True)
-    checkin = models.DateTimeField()
-    checkout = models.DateTimeField()
+        return reverse('deals:deal-detail', kwargs={'pk': self.pk})

@@ -1,4 +1,4 @@
-{% extends "resv/base.html" %}
+{% extends "deals/base.html" %}
 {% block content %}
  
 
@@ -6,11 +6,11 @@
 <h2 class="my-4">{{ object.name }}
   <small>{{ object.location }}</small>
 {% if object.author == user %}
-    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'resv:deal-update' object.id %}">Update</a>
-    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'resv:deal-delete' object.id %}">Delete</a>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'deals:deal-update' object.id %}">Update</a>
+    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'deals:deal-delete' object.id %}">Delete</a>
 {% endif %}
 {% if object.author != user %}
-    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'resv:resv-create' object.id %}">Reserve</a>
+    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'reservations:resv-create' object.id %}">Reserve</a>
 {% endif %}
 </h2>
 </div>

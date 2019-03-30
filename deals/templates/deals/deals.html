@@ -1,4 +1,4 @@
-{% extends "resv/base.html" %}
+{% extends "deals/base.html" %}
 {% block content %}
 
 <div class="row">
@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title"><a class="article-title" href="{% url 'resv:deal-detail' deal.id %}">{{ deal.name }}</a>
+            <h5 class="card-title"><a class="article-title" href="{% url 'deals:deal-detail' deal.id %}">{{ deal.name }}</a>
               <small class="text-muted">{{ deal.location }}</small></h5>
             <p class="card-text">{{ deal.short_description }}</p>
           </div>

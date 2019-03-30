@@ -1,4 +1,4 @@
-{% extends "resv/base.html" %}
+{% extends "deals/base.html" %}
 {% block content %}
 <div class="mb-4">
   <h3 class="border-bottom mb-4">Requests</h3>
@@ -17,11 +17,11 @@
       <td>{{ reservation.checkin }}</td>
       <td>{{ reservation.checkout }}</td>
       <td>       
-        <form method="post" style="display: inline;" action="{% url 'resv:accept_reservation' reservation_id=reservation.id %}">
+        <form method="post" style="display: inline;" action="{% url 'reservations:accept_reservation' reservation_id=reservation.id %}">
         {% csrf_token %}              
           <input type="submit" value="Yes" class="btn btn-secondary">
           </form>
-        <form method="post" style="display: inline;" action="{% url 'resv:refuse_reservation' reservation_id=reservation.id %}">
+        <form method="post" style="display: inline;" action="{% url 'reservations:refuse_reservation' reservation_id=reservation.id %}">
         {% csrf_token %}          
           <input type="submit" value="No" class="btn btn-secondary">
         </form>
