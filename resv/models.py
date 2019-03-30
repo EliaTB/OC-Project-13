@@ -5,14 +5,39 @@ from django.contrib.auth.models import User
 
 
 class Deal(models.Model):
-	name = models.CharField(max_length=50)
-	short_description = models.CharField(max_length=150)
-	content = models.TextField()
-	location = models.CharField(max_length=100)
-	thumbnail = models.ImageField(default='default.jpg', upload_to='deals_pics')
-	date_posted = models.DateTimeField(default=timezone.now)
-	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deals')
+    APPARTMENT = 0
+    HOLIDAY_HOME = 1
+    BED_AND_BREAKFAST = 2
+    CATEGORY = (
+        (APPARTMENT, ('Appartment')),
+        (HOLIDAY_HOME, ('Holiday home')),
+        (BED_AND_BREAKFAST, ('Bed and breakfast'))
+    )
+    name = models.CharField(max_length=50)
+    category = models.SmallIntegerField(choices=CATEGORY)
+    short_description = models.CharField(max_length=150)
+    content = models.TextField()
+    location = models.CharField(max_length=100)
+    thumbnail = models.ImageField(default='default.jpg', upload_to='deals_pics')
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deals')
 
 
-	def get_absolute_url(self):
-		return reverse('resv:deal-detail', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('resv:deal-detail', kwargs={'pk': self.pk})
+
+
+class Reservation(models.Model):
+    REQUESTED = 0
+    ACCEPTED = 1
+    DENIED = 2
+    STATUS = (
+        (REQUESTED, ('Requested')),
+        (ACCEPTED, ('Accepted')),
+        (DENIED, ('Denied')),
+    )
+    deal = models.ForeignKey(Deal ,on_delete=models.CASCADE, related_name='reservation')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservation')
+    status = models.SmallIntegerField(choices=STATUS, null=True)
+    checkin = models.DateTimeField()
+    checkout = models.DateTimeField()

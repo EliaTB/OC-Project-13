@@ -1,0 +1,27 @@
+{% extends "resv/base.html" %}
+{% block content %}
+<div>
+	<div class="mb-4">
+	<h3 class="border-bottom mb-4">Reservations</h3>
+	<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Deal name</th>
+      <th scope="col">Check In</th>
+      <th scope="col">Check Out</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  {% for reservation in reservations %}
+    <tr>
+      <th scope="row">{{ reservation.deal.name }}</th>
+      <td>{{ reservation.checkin }}</td>
+      <td>{{ reservation.checkout }}</td>
+      <td>{{ reservation.get_status_display }}</td>
+    </tr>
+  <tbody>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock content %}

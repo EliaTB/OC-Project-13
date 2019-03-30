@@ -35,6 +35,12 @@
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
+                <a class="nav-link" href="{% url 'resv:resv-list' %}">Reserv 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'resv:resvreq-list' %}">Reserv 2</a>
+              </li>                            
+              <li class="nav-item">
                 <a class="nav-link" href="{% url 'resv:deal-create' %}">Create</a>
               </li>
               <li class="nav-item">

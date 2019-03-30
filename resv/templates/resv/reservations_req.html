@@ -1,0 +1,35 @@
+{% extends "resv/base.html" %}
+{% block content %}
+<div class="mb-4">
+  <h3 class="border-bottom mb-4">Requests</h3>
+  <table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">User</th>
+      <th scope="col">Check In</th>
+      <th scope="col">Check Out</th>
+      <th scope="col">Accept reservation?</th>
+    </tr>
+  </thead>
+  {% for reservation in reservations %}
+    <tr>
+      <th scope="row">{{ reservation.user.username }}</th>
+      <td>{{ reservation.checkin }}</td>
+      <td>{{ reservation.checkout }}</td>
+      <td>       
+        <form method="post" style="display: inline;" action="{% url 'resv:accept_reservation' reservation_id=reservation.id %}">
+        {% csrf_token %}              
+          <input type="submit" value="Yes" class="btn btn-secondary">
+          </form>
+        <form method="post" style="display: inline;" action="{% url 'resv:refuse_reservation' reservation_id=reservation.id %}">
+        {% csrf_token %}          
+          <input type="submit" value="No" class="btn btn-secondary">
+        </form>
+      </td>
+    </tr>
+  <tbody>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock content %}
