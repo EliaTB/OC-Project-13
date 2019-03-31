@@ -5,10 +5,10 @@
   <div class="col-lg-3">
     <h2 class="my-4">Categories</h2>
     <div class="list-group">
-      <a href="#" class="list-group-item">Display all</a>
-      <a href="#" class="list-group-item">Appartment</a>
-      <a href="#" class="list-group-item">Holiday home</a>
-      <a href="#" class="list-group-item">Bed and breakfast</a>
+      <a href="{% url 'deals:deals' %}" class="list-group-item">Display all</a>
+      <a href="{% url 'deals:deals-category' '0' %}" class="list-group-item">Appartment</a>
+      <a href="{% url 'deals:deals-category' '1' %}" class="list-group-item">Holiday home</a>
+      <a href="{% url 'deals:deals-category' '2' %}" class="list-group-item">Bed and breakfast</a>
     </div>
   </div>
   <div class="col-lg-9">

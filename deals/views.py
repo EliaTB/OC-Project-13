@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -18,6 +18,17 @@ class DealListView(ListView):
     template_name = 'deals/deals.html'
     context_object_name = 'deals'
     ordering = ['-date_posted']
+
+
+class DealCategoryListView(ListView):
+    model = Deal
+    template_name = 'deals/deals.html'
+    context_object_name = 'deals'
+    ordering = ['-date_posted']
+
+    def get_queryset(self):
+        self.category = self.kwargs['category']
+        return Deal.objects.filter(category=self.category)
 
 
 class DealDetailView(DetailView):
