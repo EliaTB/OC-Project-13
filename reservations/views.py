@@ -4,12 +4,13 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView
 from .models import Reservation
+from .forms import ReservationForm
 
 
 class ReservationCreateView(LoginRequiredMixin, CreateView):
     model = Reservation
     success_url = '/deals'
-    fields = ['checkin', 'checkout', 'adult_nb', 'children_nb']
+    form_class = ReservationForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
