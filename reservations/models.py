@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 class Reservation(models.Model):
     REQUESTED = 0
     ACCEPTED = 1
-    DENIED = 2
+    REFUSED = 2
     STATUS = (
         (REQUESTED, ('Requested')),
         (ACCEPTED, ('Accepted')),
-        (DENIED, ('Denied')),
+        (REFUSED, ('Refused')),
     )
     deal = models.ForeignKey(Deal ,on_delete=models.CASCADE, related_name='reservation')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservation')

@@ -20,16 +20,21 @@
       <td>{{ reservation.children_nb }}</td>    
       <td>{{ reservation.checkin }}</td>
       <td>{{ reservation.checkout }}</td>
-      <td>       
-        <form method="post" style="display: inline;" action="{% url 'reservations:accept_reservation' reservation_id=reservation.id %}">
-        {% csrf_token %}              
-          <input type="submit" value="Yes" class="btn btn-secondary">
-          </form>
-        <form method="post" style="display: inline;" action="{% url 'reservations:refuse_reservation' reservation_id=reservation.id %}">
-        {% csrf_token %}          
-          <input type="submit" value="No" class="btn btn-secondary">
+      {% if reservation.status == 0 %} 
+      <td>           
+        <form method="post">
+        {% csrf_token %} 
+        <a class="btn btn-outline-secondary" href="{% url 'reservations:accept_confirm' reservation_id=reservation.id %}">Yes</a>
+        <a class="btn btn-outline-secondary" href="{% url 'reservations:refuse_confirm' reservation_id=reservation.id %}">No</a> 
         </form>
-      </td>
+      </td>        
+      {% endif %}
+      {% if reservation.status == 1 %}
+      <td>reservation accepted</td>
+      {% endif %}
+      {% if reservation.status == 2 %}
+      <td>reservation refused</td>
+      {% endif %}     
     </tr>
   <tbody>
   {% endfor %}

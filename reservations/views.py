@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView
@@ -35,12 +36,22 @@ class ReservationReqListView(LoginRequiredMixin, ListView):
         return self.model.objects.filter(deal__author=self.request.user)
 
 
+def reservation_accept_confirm(request, reservation_id):
+    reservation = Reservation.objects.get(id=reservation_id)
+    return render(request, 'reservations/reservation_accept_confirm.html', {'reservation':reservation})  
+
+
 def accept_reservation(request, reservation_id):
     reservation = Reservation.objects.get(id=reservation_id)
     reservation.status = 1
     reservation.save()
     messages.success(request, 'You accepted the reservation')
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('/reservations/requests/')
+
+
+def reservation_refuse_confirm(request, reservation_id):
+    reservation = Reservation.objects.get(id=reservation_id)
+    return render(request, 'reservations/reservation_refuse_confirm.html', {'reservation':reservation})  
 
 
 def refuse_reservation(request, reservation_id):
@@ -48,4 +59,4 @@ def refuse_reservation(request, reservation_id):
     reservation.status = 2
     reservation.save()
     messages.warning(request, 'You refused the reservation')
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('/reservations/requests/')
