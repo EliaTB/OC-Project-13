@@ -6,6 +6,8 @@
   <thead class="thead-light">
     <tr>
       <th scope="col">User</th>
+      <th scope="col">Number of adults</th>
+      <th scope="col">Number of childrens</th>     
       <th scope="col">Check In</th>
       <th scope="col">Check Out</th>
       <th scope="col">Accept reservation?</th>
@@ -13,7 +15,9 @@
   </thead>
   {% for reservation in reservations %}
     <tr>
-      <th scope="row">{{ reservation.user.username }}</th>
+      <th scope="row"><a href="{% url 'profile' reservation.user.username %}">{{ reservation.user.username }}</a></th>
+      <td>{{ reservation.adult_nb }}</td>
+      <td>{{ reservation.children_nb }}</td>    
       <td>{{ reservation.checkin }}</td>
       <td>{{ reservation.checkout }}</td>
       <td>       

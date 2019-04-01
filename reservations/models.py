@@ -15,5 +15,7 @@ class Reservation(models.Model):
     deal = models.ForeignKey(Deal ,on_delete=models.CASCADE, related_name='reservation')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservation')
     status = models.SmallIntegerField(choices=STATUS, null=True)
+    adult_nb = models.SmallIntegerField(default=1)
+    children_nb = models.SmallIntegerField(default=0)
     checkin = models.DateTimeField()
     checkout = models.DateTimeField()

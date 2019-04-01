@@ -7,6 +7,8 @@
   <thead class="thead-light">
     <tr>
       <th scope="col">Deal name</th>
+      <th scope="col">Number of adults</th>
+      <th scope="col">Number of childrens</th>
       <th scope="col">Check In</th>
       <th scope="col">Check Out</th>
       <th scope="col">Status</th>
@@ -14,7 +16,9 @@
   </thead>
   {% for reservation in reservations %}
     <tr>
-      <th scope="row">{{ reservation.deal.name }}</th>
+      <th scope="row"><a href="{% url 'deals:deal-detail' reservation.deal.id %}">{{ reservation.deal.name }}</a></th>
+      <td>{{ reservation.adult_nb }}</td>
+      <td>{{ reservation.children_nb }}</td>      
       <td>{{ reservation.checkin }}</td>
       <td>{{ reservation.checkout }}</td>
       <td>{{ reservation.get_status_display }}</td>

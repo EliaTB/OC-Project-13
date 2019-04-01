@@ -8,7 +8,7 @@ from .models import Reservation
 class ReservationCreateView(LoginRequiredMixin, CreateView):
     model = Reservation
     success_url = '/deals'
-    fields = ['checkin', 'checkout']
+    fields = ['checkin', 'checkout', 'adult_nb', 'children_nb']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
