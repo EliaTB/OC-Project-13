@@ -9,13 +9,13 @@
                 {{ form|crispy }}                
             </fieldset>
             <script>
-                $('.checkin-picker').datetimepicker({
+                $('.checkin-picker').datepicker({
                     uiLibrary: 'bootstrap4',
-                    format: 'yyyy-mm-dd hh:MM',
+                    format: 'yyyy-mm-dd',
                 });
-                $('.checkout-picker').datetimepicker({
+                $('.checkout-picker').datepicker({
                     uiLibrary: 'bootstrap4',
-                    format: 'yyyy-mm-dd hh:MM',
+                    format: 'yyyy-mm-dd',
                 });
             </script>
             <div class="form-group">

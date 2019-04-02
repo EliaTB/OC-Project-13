@@ -17,5 +17,5 @@ class Reservation(models.Model):
     status = models.SmallIntegerField(choices=STATUS, null=True)
     adult_nb = models.SmallIntegerField(default=1)
     children_nb = models.SmallIntegerField(default=0)
-    checkin = models.DateTimeField()
-    checkout = models.DateTimeField()
+    checkin = models.DateField()
+    checkout = models.DateField()
