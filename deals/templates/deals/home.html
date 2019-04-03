@@ -13,13 +13,18 @@
   
   <div>
     <h4>Find deals</h4>
-    <div class="input-group mb-3">
-        <input name="question" type="text" class="form-control" aria-describedby="button-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="submit">Search</button>
-        </div>
+      <form method="GET" action="{% url 'deals:deals-search' %}">
+        <input type="text" class="form-control" id="query"  name="query"> 
+      </form>
     </div>
-    </div>
+    <script>
+      $(function() {
+        $("#query").autocomplete({
+          source: "autocomplete/",
+          minLength: 2,
+        });
+      });
+    </script>
   <hr>
 
   <!-- Page Heading -->

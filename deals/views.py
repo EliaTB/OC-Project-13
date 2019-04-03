@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Deal
+from .forms import DealForm, DealImagesForm
+import json
 
 
 def home(request):
@@ -31,13 +34,40 @@ class DealCategoryListView(ListView):
         return Deal.objects.filter(category=self.category)
 
 
+class DealSearchView(ListView):
+    template_name = 'deals/deals.html'
+    model = Deal
+    context_object_name = 'deals'
+
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        object_list = self.model.objects.filter(location__icontains = query)
+        return object_list
+
+
+def autocomplete(request):
+
+    if request.is_ajax():
+        query = request.GET.get('term', '')
+        deals = Deal.objects.filter(location__icontains = query)
+        results = []
+        for p in deals:
+            deal_dict = {}
+            deal_dict = p.location
+            results.append(deal_dict)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    return HttpResponse(data, 'application/json')
+
+
 class DealDetailView(DetailView):
     model = Deal
 
 
 class DealCreateView(LoginRequiredMixin, CreateView):
     model = Deal
-    fields = ['name', 'category', 'short_description', 'content', 'location',  'thumbnail']
+    form_class = DealForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -46,7 +76,7 @@ class DealCreateView(LoginRequiredMixin, CreateView):
 
 class DealUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Deal
-    fields = ['name', 'category', 'short_description', 'content', 'location',  'thumbnail']
+    fields = DealForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user

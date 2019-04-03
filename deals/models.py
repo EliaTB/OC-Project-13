@@ -25,3 +25,8 @@ class Deal(models.Model):
 
     def get_absolute_url(self):
         return reverse('deals:deal-detail', kwargs={'pk': self.pk})
+
+
+class DealImages(models.Model):
+    deal = models.ForeignKey(Deal, on_delete=models.CASCADE, related_name='deals_images')
+    image = models.ImageField(null=True, upload_to='deals_pics')      
