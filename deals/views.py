@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Deal
+from .models import Deal, DealImages
 from .forms import DealForm, DealImagesForm
 import json
 
@@ -16,6 +17,52 @@ def about(request):
     return render(request, 'deals/about.html')
 
 
+def autocomplete(request):
+    if request.is_ajax():
+        query = request.GET.get('term', '')
+        deals = Deal.objects.filter(location__icontains = query)
+        results = []
+        for p in deals:
+            deal_dict = {}
+            deal_dict = p.location
+            results.append(deal_dict)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    return HttpResponse(data, 'application/json')
+
+
+def upload_img(request, deal_id):
+    ImageFormSet = modelformset_factory(DealImages,
+                                        form=DealImagesForm, extra=3)
+    formset =ImageFormSet(request.POST or None)
+   
+    deal = Deal.objects.get(id=deal_id)
+
+    if request.method == 'POST':
+        formset = ImageFormSet(request.POST,
+                                request.FILES,
+                                queryset=DealImages.objects.none())
+    if formset.is_valid():
+        for form in formset.cleaned_data:
+            try:
+                image = form['image']
+                photo = DealImages(deal=deal, image=image)
+                photo.save()
+
+            except Exception as e:
+                break    
+
+        messages.success(request, f'Your account has been updated!')
+        return redirect('deals:deals')
+
+    else:
+        formset = ImageFormSet(queryset=DealImages.objects.none())
+
+    context = {'i_form': formset}
+    return render(request, 'deals/deal_images.html', context)   
+
+
 class DealListView(ListView):
     model = Deal
     template_name = 'deals/deals.html'
@@ -23,7 +70,7 @@ class DealListView(ListView):
     ordering = ['-date_posted']
 
 
-class DealCategoryListView(ListView):
+class CategoryListView(ListView):
     model = Deal
     template_name = 'deals/deals.html'
     context_object_name = 'deals'
@@ -45,25 +92,9 @@ class DealSearchView(ListView):
         return object_list
 
 
-def autocomplete(request):
-
-    if request.is_ajax():
-        query = request.GET.get('term', '')
-        deals = Deal.objects.filter(location__icontains = query)
-        results = []
-        for p in deals:
-            deal_dict = {}
-            deal_dict = p.location
-            results.append(deal_dict)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    return HttpResponse(data, 'application/json')
-
-
 class DealDetailView(DetailView):
     model = Deal
-
+        
 
 class DealCreateView(LoginRequiredMixin, CreateView):
     model = Deal
