@@ -50,6 +50,15 @@
   </div>
 </div>
 {% if object.author == user %}
-  <a class="btn btn-outline-secondary mt-4" href="{% url 'deals:uploadimg' deal_id=object.id  %}">upload images</a>
+<form class="mt-4" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Upload images</legend>
+            {{ i_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Upload</button>
+    </div>
+</form>
 {% endif %}
 {% endblock content %}

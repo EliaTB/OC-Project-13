@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Deal, DealImages
 from .forms import DealForm, DealImagesForm
 import json
@@ -30,37 +30,6 @@ def autocomplete(request):
     else:
         data = 'fail'
     return HttpResponse(data, 'application/json')
-
-
-def upload_img(request, deal_id):
-    ImageFormSet = modelformset_factory(DealImages,
-                                        form=DealImagesForm, extra=3)
-    formset =ImageFormSet(request.POST or None)
-   
-    deal = Deal.objects.get(id=deal_id)
-
-    if request.method == 'POST':
-        formset = ImageFormSet(request.POST,
-                                request.FILES,
-                                queryset=DealImages.objects.none())
-    if formset.is_valid():
-        for form in formset.cleaned_data:
-            try:
-                image = form['image']
-                photo = DealImages(deal=deal, image=image)
-                photo.save()
-
-            except Exception as e:
-                break    
-
-        messages.success(request, f'Your account has been updated!')
-        return redirect('deals:deals')
-
-    else:
-        formset = ImageFormSet(queryset=DealImages.objects.none())
-
-    context = {'i_form': formset}
-    return render(request, 'deals/deal_images.html', context)   
 
 
 class DealListView(ListView):
@@ -92,8 +61,36 @@ class DealSearchView(ListView):
         return object_list
 
 
-class DealDetailView(DetailView):
-    model = Deal
+# class DealDetailView(DetailView):
+#     model = Deal
+
+
+def deal_detail(request, deal_id):
+    ImageFormSet = modelformset_factory(DealImages,
+                                        form=DealImagesForm)
+   
+    deal = Deal.objects.get(id=deal_id)
+
+    if request.method == 'POST':
+        formset = ImageFormSet(request.POST or None, request.FILES or None)
+        if formset.is_valid():
+            for form in formset.cleaned_data:
+                image = form['image']
+                photo = DealImages(deal=deal, image=image)
+                photo.save()  
+
+            messages.success(request, f'Your image has been uploaded!')
+            return redirect(request.META.get('HTTP_REFERER'))
+
+    else:
+        formset = ImageFormSet(queryset=DealImages.objects.none())
+
+    context = {
+    'i_form': formset,
+    'object': deal,
+    }
+
+    return render(request, 'deals/deal_detail.html', context) 
         
 
 class DealCreateView(LoginRequiredMixin, CreateView):
@@ -107,7 +104,7 @@ class DealCreateView(LoginRequiredMixin, CreateView):
 
 class DealUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Deal
-    fields = DealForm
+    form_class = DealForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
