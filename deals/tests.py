@@ -1,4 +1,4 @@
-from django.test import TestCase, client
+from django.test import TestCase, Client
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
