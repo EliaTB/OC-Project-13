@@ -57,10 +57,6 @@ class DealSearchView(ListView):
         return object_list
 
 
-# class DealDetailView(DetailView):
-#     model = Deal
-
-
 def deal_detail(request, deal_id):
     ImageFormSet = modelformset_factory(DealImages,
                                         form=DealImagesForm)
@@ -68,12 +64,12 @@ def deal_detail(request, deal_id):
     deal = Deal.objects.get(id=deal_id)
 
     if request.method == 'POST':
-        formset = ImageFormSet(request.POST or None, request.FILES or None)
+        formset = ImageFormSet(request.POST, request.FILES)
         if formset.is_valid():
             for form in formset.cleaned_data:
                 image = form['image']
                 photo = DealImages(deal=deal, image=image)
-                photo.save()  
+                photo.save()
 
             messages.success(request, f'Your image has been uploaded!')
             return redirect(request.META.get('HTTP_REFERER'))

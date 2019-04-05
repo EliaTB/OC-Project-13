@@ -28,5 +28,5 @@ class Deal(models.Model):
 
 
 class DealImages(models.Model):
-    deal = models.ForeignKey(Deal, on_delete=models.CASCADE, related_name='deals_images')
-    image = models.ImageField(null=True, upload_to='deals_pics')      
+    deal = models.ForeignKey(Deal, on_delete=models.CASCADE, related_name='dealimages')
+    image = models.ImageField(null=True, upload_to='deals_pics')

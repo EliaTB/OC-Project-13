@@ -16,7 +16,7 @@
   </thead>
   {% for reservation in reservations %}
     <tr>
-      <th scope="row"><a href="{% url 'deals:deal-detail' reservation.deal.id %}">{{ reservation.deal.name }}</a></th>
+      <th scope="row">{{ reservation.deal.name }}</th>
       <td>{{ reservation.adult_nb }}</td>
       <td>{{ reservation.children_nb }}</td>      
       <td>{{ reservation.checkin }}</td>
