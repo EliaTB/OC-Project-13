@@ -24,7 +24,7 @@ class Deal(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('deals:deal-detail', kwargs={'pk': self.pk})
+        return reverse('deals:deal-detail', kwargs={'deal_id': self.pk})
 
 
 class DealImages(models.Model):
