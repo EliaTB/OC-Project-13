@@ -18,6 +18,30 @@ ul {
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
+}
+
+.content-deal {
+  background: #ffffff;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
   margin-bottom: 20px;
 }
 
+.carousel-inner {
+  width: 500px;
+  height: 300px;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-img {
+  height: 150px;
+  width: 150px;
+  margin-right: 20px;
+}

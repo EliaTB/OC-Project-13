@@ -33,13 +33,14 @@ class DealListView(ListView):
     template_name = 'deals/deals.html'
     context_object_name = 'deals'
     ordering = ['-date_posted']
+    paginate_by = 10
 
 
 class CategoryListView(ListView):
     model = Deal
     template_name = 'deals/deals.html'
     context_object_name = 'deals'
-    ordering = ['-date_posted']
+    paginate_by = 10
 
     def get_queryset(self):
         self.category = self.kwargs['category']
@@ -47,8 +48,8 @@ class CategoryListView(ListView):
 
 
 class DealSearchView(ListView):
-    template_name = 'deals/deals.html'
     model = Deal
+    template_name = 'deals/deals.html'
     context_object_name = 'deals'
 
     def get_queryset(self):
