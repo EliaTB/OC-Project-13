@@ -13,7 +13,6 @@ app_name = "deals"
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('about/', views.about, name='about'),
     path('deals/', DealListView.as_view(), name='deals'),
     path('deals/search/', DealSearchView.as_view(), name='deals-search'),
     path('deals/category/<category>', CategoryListView.as_view(), name='deals-category'),

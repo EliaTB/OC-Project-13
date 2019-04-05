@@ -1,17 +1,18 @@
 {% extends "deals/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div> 
-<h2 class="my-4">{{ object.name }}
-  <small>{{ object.location }}</small>
-{% if object.author == user %}
-    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'deals:deal-update' object.id %}">Update</a>
-    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'deals:deal-delete' object.id %}">Delete</a>
-{% endif %}
-{% if object.author != user %}
-    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'reservations:resv-create' object.id %}">Reserve</a>
-{% endif %}
-</h2>
+<div class="content-detail"> 
+ <div>
+  <h3 class="my-4">{{ object.name }}
+    <small>{{ object.location }}</small>
+  {% if object.author == user %}
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'deals:deal-update' object.id %}">Update</a>
+      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'deals:deal-delete' object.id %}">Delete</a>
+  {% endif %}
+  {% if object.author != user %}
+      <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'reservations:resv-create' object.id %}">Reserve</a>
+  {% endif %}
+  </h3>
 </div>
 
 <div class="row">
@@ -60,5 +61,6 @@
       <button class="btn btn-outline-info" type="submit">Upload</button>
     </div>
 </form>
+</div>
 {% endif %}
 {% endblock content %}

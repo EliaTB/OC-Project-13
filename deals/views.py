@@ -13,10 +13,6 @@ def home(request):
     return render(request, 'deals/home.html')
 
 
-def about(request):
-    return render(request, 'deals/about.html')
-
-
 def autocomplete(request):
     if request.is_ajax():
         query = request.GET.get('term', '')
