@@ -9,8 +9,12 @@ from .forms import DealForm, DealImagesForm
 import json
 
 
-def home(request):
-    return render(request, 'deals/home.html')
+class HomeView(ListView):
+    model = Deal
+    template_name = 'deals/home.html'
+    context_object_name = 'deals'
+    ordering = ['-date_posted']
+    paginate_by = 3
 
 
 def autocomplete(request):

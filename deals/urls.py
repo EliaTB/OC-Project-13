@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import ( 
+from .views import (
+    HomeView, 
     DealListView,
     CategoryListView,
     DealCreateView,
@@ -12,7 +13,7 @@ from . import views
 app_name = "deals"
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', HomeView.as_view(), name='home'),
     path('deals/', DealListView.as_view(), name='deals'),
     path('deals/search/', DealSearchView.as_view(), name='deals-search'),
     path('deals/category/<category>', CategoryListView.as_view(), name='deals-category'),

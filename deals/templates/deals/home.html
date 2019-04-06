@@ -8,13 +8,14 @@
 
   <div class="starter-template">
     <h1>EB Reservations</h1>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat tempora, iste aperiam voluptatem doloremque laborum mollitia quis rerum quia, ut consectetur facere maxime quasi dolor quod, eos in veritatis harum!</p>
+    <p class="lead">A simple, easy to use booking web application</p>
   </div>
   
   <div class="mt-5">
-    <h4>Find deals or <a href="{% url 'deals:deals' %}"><small>browse all</small></a></h4>
-      <form method="GET" action="{% url 'deals:deals-search' %}">
-        <input type="text" class="form-control" id="query"  name="query"> 
+    <h4>Find deals</h4>
+      <form class="form-inline mr-auto" method="GET" action="{% url 'deals:deals-search' %}">
+        <input type="text" class="form-control mr-sm-2" id="query"  name="query">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
   </div>
     <script>
@@ -27,40 +28,24 @@
     </script>
     <hr>
 
-  <div class="mt-4">
-    <h4 class="my-4">Features</h4>
-
+  <div class="mt-5">
+    <h4 class="my-4">Latest deals  <a href="{% url 'deals:deals' %}"><small>browse all</small></a></h4>
+    
+    
     <div class="row">
+      {% for deal in deals %}
       <div class="col-lg-4 col-sm-6 mb-4">
         <div class="card h-100">
+          <img class="card-img-top" src="{{ deal.thumbnail.url }}" style="height: 175px; alt="card-image">
           <div class="card-body">
-            <h4 class="card-title">
-              <h6>Feature One</h6>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+            <h5 class="card-title"><a class="article-title" href="{% url 'deals:deal-detail' deal.id %}">{{ deal.name }}</a>
+              <small class="text-muted">{{ deal.location }}</small>
+            </h5>
+            <p class="card-text">{{ deal.short_description }}</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h4 class="card-title">
-              <h6>Feature Two</h6>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <div class="card-body">
-            <h4 class="card-title">
-              <h6>Feature Three</h6>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
    </div> 
 </div>
