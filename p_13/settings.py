@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'storages',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'deals.apps.DealsConfig',
-    'reservations.apps.ReservationsConfig',
+    'reservations.apps.ReservationsConfig',  
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,18 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = USER
 EMAIL_HOST_PASSWORD = PASSW
+
+AWS_KEY_ID = os.environ.get('AWS_KEY_ID')
+AWS_KEY = os.environ.get('AWS_KEY')
+BUCKET_NAME = os.environ.get('BUCKET_NAME')
+
+AWS_ACCESS_KEY_ID = AWS_KEY_ID
+AWS_SECRET_ACCESS_KEY = AWS_KEY
+AWS_STORAGE_BUCKET_NAME = BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = 'eu-west-3'
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
