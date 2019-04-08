@@ -76,7 +76,7 @@ def deal_detail(request, deal_id):
                 photo = DealImages(deal=deal, image=image)
                 photo.save()
 
-            messages.success(request, f'Your image has been uploaded!')
+            messages.success(request, 'Your image has been uploaded!')
             return redirect(request.META.get('HTTP_REFERER'))
 
     else:

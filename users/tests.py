@@ -7,26 +7,44 @@ class UserViewTests(TestCase):
 
 
     def setUp(self):
-        user = User.objects.create(username='testuser', password="password")
+        self.Testuser = User.objects.create(username='testuser', password="password")
 
 
     def test_login(self):
-        response = self.client.post(reverse('login'),
+        resp = self.client.post(reverse('login'),
             {'username': 'testuser',
             'password': 'password'}, follow=True)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(resp.status_code, 200)
 
 
     def test_register(self):
-        response = self.client.post(reverse('register'),
+        resp = self.client.post(reverse('register'),
             {'username': 'test',
             'email': 'testuser@email.com',
             'password1': 'password',
             'password2' : 'password' }, follow=True)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(resp.status_code, 200)
 
 
     def test_logout(self):
-        self.client.login(username='testuser', password='password')
-        self.client.logout()
-        self.assertRaises(KeyError, lambda: self.client.session['_auth_user_id'])
+        self.client.force_login(user=self.Testuser)
+        resp = self.client.get(reverse('logout'))
+        self.assertEqual(resp.status_code, 200)
+
+
+    def test_profile(self):      
+        resp = self.client.get(reverse('profile'))
+        self.assertEqual(resp.status_code, 302)
+
+        self.client.force_login(user=self.Testuser)
+        resp = self.client.get(reverse('profile'))
+        self.assertEqual(resp.status_code, 200)
+
+
+    def test_profile(self):       
+        resp = self.client.get(reverse('profile', kwargs={'username': 'testuser'}))
+        self.assertEqual(resp.status_code, 302)
+
+        self.client.force_login(user=self.Testuser)
+        resp = self.client.get(reverse('profile', kwargs={'username': 'testuser'}))
+        self.assertEqual(resp.status_code, 200)

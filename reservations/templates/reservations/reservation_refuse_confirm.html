@@ -5,7 +5,7 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">refuse reservation</legend>
-                <h2>Are you sure you want to refuse the reservation "{{ reservation.deal.name }}"</h2>
+                <h2>Are you sure you want to refuse the reservation for "{{ reservation.user }}"</h2>
             </fieldset>
             <div class="form-group">
                 <a class="btn btn-outline-danger" href="{% url 'reservations:refuse_reservation' reservation_id=reservation.id  %}">Accept</a>
