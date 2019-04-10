@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -45,5 +45,5 @@ def profile(request):
 
 @login_required
 def get_user_profile(request, username):
-    user = User.objects.get(username=username)
+    user = get_object_or_404(User, username=username)
     return render(request, 'users/public_profile.html', {'user':user})

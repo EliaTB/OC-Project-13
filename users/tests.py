@@ -41,10 +41,13 @@ class UserViewTests(TestCase):
         self.assertEqual(resp.status_code, 200)
 
 
-    def test_profile(self):       
+    def test_publicprofile(self):       
         resp = self.client.get(reverse('profile', kwargs={'username': 'testuser'}))
         self.assertEqual(resp.status_code, 302)
 
         self.client.force_login(user=self.Testuser)
         resp = self.client.get(reverse('profile', kwargs={'username': 'testuser'}))
         self.assertEqual(resp.status_code, 200)
+
+        resp = self.client.get(reverse('profile', kwargs={'username': 'baduser'}))
+        self.assertEqual(resp.status_code, 404)

@@ -39,12 +39,12 @@ class RservationsViewsTest(TestCase):
 
 
     def test_RequestsList(self):
-        resp = self.client.get(reverse('reservations:resvreq-list'))
+        resp = self.client.get(reverse('reservations:req-list'))
         self.assertEqual(resp.status_code, 302)
         
         
         self.client.force_login(user=self.Testuser)
-        resp = self.client.get(reverse('reservations:resvreq-list'))
+        resp = self.client.get(reverse('reservations:req-list'))
         self.assertEqual(resp.status_code, 200)
         self.assertTrue(resp.context['reservations'])
 

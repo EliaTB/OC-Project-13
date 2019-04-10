@@ -10,3 +10,8 @@ class ReservationForm(forms.ModelForm):
 		    'checkin': forms.DateTimeInput(attrs={'class': 'checkin-picker'}),
 		    'checkout': forms.DateTimeInput(attrs={'class': 'checkout-picker'})
 		}
+
+	def __init__(self, *args, **kwargs):
+		super(ReservationForm, self).__init__(*args, **kwargs)
+		self.fields['adult_nb'].label = 'Number of adults'
+		self.fields['children_nb'].label = 'Number of children'

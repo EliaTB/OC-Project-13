@@ -24,8 +24,8 @@
       <td>           
         <form method="post">
         {% csrf_token %} 
-        <a class="btn btn-outline-secondary" href="{% url 'reservations:accept_confirm' reservation_id=reservation.id %}">Yes</a>
-        <a class="btn btn-outline-secondary" href="{% url 'reservations:refuse_confirm' reservation_id=reservation.id %}">No</a> 
+        <a class="btn btn-outline-primary" href="{% url 'reservations:accept_confirm' reservation_id=reservation.id %}">Yes</a>
+        <a class="btn btn-outline-primary" href="{% url 'reservations:refuse_confirm' reservation_id=reservation.id %}">No</a> 
         </form>
       </td>        
       {% endif %}

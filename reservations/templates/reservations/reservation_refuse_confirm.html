@@ -8,8 +8,8 @@
                 <h2>Are you sure you want to refuse the reservation for "{{ reservation.user }}"</h2>
             </fieldset>
             <div class="form-group">
-                <a class="btn btn-outline-danger" href="{% url 'reservations:refuse_reservation' reservation_id=reservation.id  %}">Accept</a>
-                <a class="btn btn-outline-secondary" href="{% url 'reservations:resvreq-list' %}">Cancel</a>
+                <a class="btn btn-outline-danger" href="{% url 'reservations:refuse_reservation' reservation_id=reservation.id  %}">Refuse</a>
+                <a class="btn btn-outline-secondary" href="{% url 'reservations:req-list' %}">Cancel</a>
             </div>
         </form>
     </div>

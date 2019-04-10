@@ -6,7 +6,16 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Create reservation</legend>
-                {{ form|crispy }}                
+                <div class="form-row">
+                      <div class="form-group col-md-6">
+                        {{ form.checkin|as_crispy_field }}
+                        {{ form.adult_nb|as_crispy_field }}                      
+                      </div>
+                      <div class="form-group col-md-6">
+                        {{ form.checkout|as_crispy_field }}
+                        {{ form.children_nb|as_crispy_field }}
+                      </div>
+                    </div>               
             </fieldset>
             <script>
                 $('.checkin-picker').datepicker({
@@ -19,7 +28,7 @@
                 });
             </script>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Create</button>
+                <button class="btn btn-outline-info" type="submit">Submit</button>
             </div>
         </form>
     </div>

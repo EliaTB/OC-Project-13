@@ -59,6 +59,8 @@ class DealSearchView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('query')
         object_list = self.model.objects.filter(location__icontains = query)
+        if not object_list:
+            messages.warning(self.request, "Sorry, we didn't find any deal with that location")
         return object_list
 
 

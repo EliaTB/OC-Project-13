@@ -11,7 +11,7 @@ from .forms import ReservationForm
 
 class ReservationCreateView(LoginRequiredMixin, CreateView):
     model = Reservation
-    success_url = '/deals'
+    success_url = '/reservations'
     form_class = ReservationForm
 
     def form_valid(self, form):
@@ -30,9 +30,9 @@ class ReservationListView(LoginRequiredMixin, ListView):
         return self.model.objects.filter(user=self.request.user)
 
 
-class ReservationReqListView(LoginRequiredMixin, ListView):
+class RequestListView(LoginRequiredMixin, ListView):
     model = Reservation
-    template_name = 'reservations/reservations_req.html'
+    template_name = 'reservations/requests.html'
     context_object_name = 'reservations'
 
     def get_queryset(self):
@@ -67,5 +67,5 @@ def refuse_reservation(request, reservation_id):
     reservation = Reservation.objects.get(id=reservation_id)
     reservation.status = 2
     reservation.save()
-    messages.warning(request, 'You refused the reservation')
+    messages.success(request, 'You refused the reservation')
     return redirect('/reservations/requests/')
