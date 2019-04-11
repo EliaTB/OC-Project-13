@@ -2,15 +2,15 @@
 {% block content %}
 <div class="content-section">
 
-  <div class="starter-template">
+  <div class="starter-template text-center">
     <h1>EB Reservations</h1>
-    <p class="lead">A simple, easy to use booking web application</p>
+    <p class="lead">A practical, easy to use booking web application</p>
   </div>
   
   <div class="mt-5">
     <h4>Find deals</h4>
       <form class="form-inline mr-auto" method="GET" action="{% url 'deals:deals-search' %}">
-        <input type="text" class="form-control mr-sm-2" id="query"  name="query">
+        <input type="text" placeholder="Insert location" class="form-control mr-sm-2" style="width: 35%" id="query"  name="query">
         <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
   </div>
@@ -25,9 +25,7 @@
     <hr>
 
   <div class="mt-5">
-    <h4 class="my-4">Latest deals  <a href="{% url 'deals:deals' %}"><small>browse all</small></a></h4>
-    
-    
+    <h4 class="my-4">Latest deals  <a href="{% url 'deals:deals' %}"><small>browse all</small></a></h4>   
     <div class="row">
       {% for deal in deals %}
       <div class="col-lg-4 col-sm-6 mb-4">
@@ -43,6 +41,6 @@
       </div>
       {% endfor %}
     </div>
-   </div> 
+   </div>
 </div>
 {% endblock content %}

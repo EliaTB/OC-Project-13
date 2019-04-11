@@ -41,7 +41,7 @@
       <div class="col-md-6">
         <h4 class="mb-3">Description</h4>
         <p>{{ object.content}}</p>
-        <p class="text-muted mt-2">author: <a href="{% url 'profile' username=object.author %}">{{ object.author }}</a></p>
+        <p class="text-muted mt-2">Owner: <a href="{% url 'profile' username=object.author %}">{{ object.author }}</a></p>
       </div>
     </div>
 {% if object.author == user %}
